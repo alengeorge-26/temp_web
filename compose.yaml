@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  web:
+    build: 
+      context: .
+    ports:
+      - 4173:4173
+    env_file:
+      - .env
+
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: .
+          target: /app
+          action: sync

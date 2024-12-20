@@ -1,0 +1,105 @@
+@import url('../../styles/global.css');
+
+.viewFileContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.headSpan{
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    background: var(--main_back_blue);
+    color: white;
+    width: 300px;
+}
+
+.fileList{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.fileContainer{
+    background: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+}
+
+.fileContainer h2{
+    color: rgb(60, 57, 57);
+}
+
+.fileContainer span{
+    color: var(--main_back_blue);
+}
+
+.fileContainer p{
+    color: #566573;
+    font-size: 15px;
+}
+
+.fileDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.fileDetails p{
+    color:#e74c3c;
+}
+
+.fileStatus{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+}
+
+.fileStatus button{
+    outline: none;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background: #ceeaff;
+    color: var(--main_back_blue);
+    cursor: pointer;
+}
+
+@media (max-width: 1275px) {
+    .viewFileContainer{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .fileList{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
+        gap: 20px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 1000px) {
+
+    .viewFileContainer{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .fileList{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        justify-content: center;
+        gap: 20px;
+        margin-top: 10px;
+    }
+}

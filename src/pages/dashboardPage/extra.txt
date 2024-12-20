@@ -1,0 +1,72 @@
+<div className={styles.dashboardGraph}>
+    <Line data={data_2} options={options_2}/>
+</div>
+
+<aside id={styles.sidebar}>
+
+</aside>
+
+<div className={styles.sidebarList}>
+    <div className={styles.sidebarListItem}>
+        <span>----</span>
+    </div>
+</div>
+
+const data_2 = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December'],
+    datasets: [
+    {
+        data: ['Positive', 'Neutral', 'Negative', 'Positive', 'Neutral', 'Negative', 'Positive', 'Neutral', 'Negative', 'Positive', 'Neutral', 'Negative'], 
+        borderColor: 'white',          
+        tension: 0.1,         
+    }]
+};
+    
+const options_2 = 
+{
+    scales: 
+    {
+        x: 
+        {
+            ticks: 
+            {
+                color: 'yellow',
+                font: 
+            {
+                family:'Poppins',
+                size:8
+            }
+            },
+            grid: {
+                color: 'yellow'
+            }
+        },
+        y: 
+        {
+            type: 'category',
+            labels: ['Positive', 'Neutral', 'Negative'],
+            ticks: 
+            {
+                color: '#24E921 ',
+                font: 
+            {
+                family:'Poppins',
+                size:11
+            }
+            },
+            grid: {
+                color: '#24E921'
+            }
+        }
+    },
+    plugins: 
+    {
+        legend:
+        {
+            display: false,
+        },
+        datalabels: false,
+    },
+    responsive: true,
+    maintainAspectRatio: false
+}

@@ -1,0 +1,24 @@
+.parentViewFilePageConatiner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: #e5e7e9;
+}
+
+.viewFilePageContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    gap: 20px;
+    width: 1200px;
+}
+
+@media (max-width: 800px) {
+    .viewFilePageContainer{
+        width: 100%;
+    }
+}

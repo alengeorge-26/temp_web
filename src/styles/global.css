@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", serif;
+  font-style: normal;
+  font-weight: 500;
+}
+
+body{
+  background: #ffffff;
+}
+
+:root {
+  --main_white: #eaeefa;
+  --main_back_blue:#0351ce;
+  --main_but_pink:#6e1052;
+}

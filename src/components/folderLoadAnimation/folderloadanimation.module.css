@@ -1,0 +1,7 @@
+.loading
+{
+    width: 100%;
+    z-index: 1000;
+    border: none;
+    border-radius: 10px;
+}

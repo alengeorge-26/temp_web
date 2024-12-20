@@ -1,0 +1,48 @@
+@import url('../../styles/global.css');
+
+.loginContainer{
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 50px;
+    background-color: var(--main_back_blue);
+    color: var(--main_white);
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginForm input{
+    outline: none;
+    border: none;
+    background: var(--main_white);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+} 
+
+.loginForm button{
+    outline: none;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    background: rgb(1, 130, 1);
+    color: var(--main_white);
+}
+
+.loginForm button:active{
+    opacity:.5;
+}
+
+.inputContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}

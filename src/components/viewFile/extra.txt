@@ -1,0 +1,82 @@
+<table className={styles.table}>
+    <tr>
+        <th>File ID</th>
+        <th>File Name</th>
+        <th>Output File <FontAwesomeIcon icon={faFilePdf} /></th>
+    </tr>
+    {files?.map((file) => (
+        <tr key={file.file_id} className={styles.rowdata}>
+            <td>{file.file_id}</td>
+            <td>{file.file_name}</td>
+            <td onClick={() =>{setFileID(file.file_id);setFileURL(file.input_path);{navigate('/highlightpdf')}}} style={{cursor:"pointer"}}><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></td>
+        </tr>
+    ))}
+</table>
+
+.table th:nth-child(1), th:nth-child(2), th:nth-child(3) 
+{
+    display: none;
+}
+
+.table thead {
+    display: none;
+}
+
+.table tr {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.table td {
+    display: block;
+    text-align: right;
+    padding: 8px 0;
+    position: relative;
+    border: none;
+    text-align: left;
+}
+
+.table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    text-align: left;
+    font-weight: bold;
+    color: #555;
+}
+
+.table {
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.table th {
+    border-bottom: 1px solid #000000;
+    padding: 0.5em 1em;
+    text-align: left;
+    color: var(--main_back_blue);
+}
+
+.table td {
+    padding: 0.65em 1em;
+    border-top: 1px solid #000000;
+    font-weight: 500;
+}
+
+.rowdata{
+    border: 5px solid white;
+}
+
+.rowdata:nth-child(even) {
+    background-color: #d2f9e1;
+}
+
+.rowdata:hover{
+    border-left: 5px solid var(--main_but_pink);
+    border-right: 5px solid var(--main_but_pink);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}

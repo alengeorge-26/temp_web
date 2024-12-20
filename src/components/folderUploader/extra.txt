@@ -1,0 +1,119 @@
+{failedData?.length > 0 && 
+<div className={styles.data}> 
+<span className={styles.headSpan} style={{backgroundColor:'#a70303'}}>Failed Uploads</span>
+<table className={styles.datatable}>
+    <tr className={styles.tableHeader}>
+    <th>File ID</th>
+    <th>File Name</th>
+    </tr>
+    {failedData?.map((file,index) => (
+    <tr key={index}>
+        <td style={{cursor:'pointer'}}>{file.file_id}</td>
+        <td>{file.file_name}</td>
+        <td onClick={(e)=>handleFileUpload(e,file.file_id)} style={{cursor:'pointer',color:'#ca1900'}}>Retry</td>
+    </tr>
+    ))}
+</table>
+</div>}
+
+{successData?.length > 0 &&  
+<div className={styles.data}>
+<span className={styles.headSpan} style={{backgroundColor:'#00c418'}}>Successful Uploads</span>
+<table className={styles.datatable}>
+    <tr className={styles.tableHeader}>
+    <th>File ID</th>
+    <th>File Name <FontAwesomeIcon icon={faFilePdf}/></th>
+    </tr>
+    {successData?.map((file,index) => (
+    <tr key={index}>
+        <td>{file.file_id}</td>
+        <td style={{cursor:'pointer'}} onClick={() => window.open(file.input_path)}>{file.file_name} <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></td>
+    </tr>
+    ))}
+</table>
+</div>}
+
+
+{successData?.length > 0 &&  
+<div className={styles.data}>
+    <span className={styles.headSpan} style={{backgroundColor:'#00c418'}}>Successful Uploads</span>
+    <table className={styles.datatable}>
+    <tr className={styles.tableHeader}>
+        <th>File ID</th>
+        <th>File Name <FontAwesomeIcon icon={faFilePdf}/></th>
+    </tr>
+    {successData?.map((file,index) => (
+        <tr key={index}>
+        <td>{file.file_id}</td>
+        <td style={{cursor:'pointer'}} onClick={() => window.open(file.input_path)}>{file.file_name} <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></td>
+        </tr>
+    ))}
+    </table>
+</div>}
+
+
+
+.datatable {
+  width:100%;
+  background: #ffffff;
+  border-radius: 0.25em;
+  border-collapse: collapse;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.datatable tr:nth-child(even){
+  background: #cae8f1;
+}
+
+.datatable th {
+  font-size: 0.85em;
+  padding: 0.5em 1em;
+  text-align: left;
+}
+
+.datatable td {
+  padding: 0.65em 1em;
+  border-bottom: 1px solid #b2bec1;
+}
+
+.tableHeader{
+  color: var(--main_back_blue);
+}
+
+@media (max-width: 730px) {
+  .folderInput{
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .datatable th:nth-child(1), th:nth-child(2), th:nth-child(3) {
+      display: none;
+  }
+
+  .datatable thead {
+    display: none;
+  }
+
+  .datatable tr {
+      display: block;
+      margin-bottom: 10px;
+  }
+
+  .datatable td {
+      display: block;
+      text-align: right;
+      padding: 5px;
+      position: relative;
+      border: none;
+      text-align: left;
+  }
+
+  .datatable td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      text-align: left;
+      font-weight: bold;
+      color: #555;
+  }
+}

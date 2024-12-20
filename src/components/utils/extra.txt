@@ -1,0 +1,152 @@
+import { useEffect, useRef, useState } from 'react';
+import { pdfjs, Document, Page } from 'react-pdf';
+import 'react-pdf/dist/esm/Page/TextLayer.css';
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+import { UserContext } from '../../contextapi.js/user_context';
+import { useContext } from 'react';
+import styles from './highlightpdf.module.css'
+import Navbar from '../../components/navbar/Navbar';
+import TransitionsPopper from '../../components/utils/transitionsPopper/TransitionsPopper';
+import icd_server from '../../url/icd_server';
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url
+).toString();
+
+const HighlightPDF = () => {
+  const {fileID,fileURL} = useContext(UserContext)
+
+  const [numPages, setNumPages] = useState(null);
+  const [highlights, setHighlights] = useState([]);
+  const [renderedPagesCount, setRenderedPagesCount] = useState(0);
+  const textLayerRefs = useRef([]);
+  const [text, setText] = useState('');
+  const [desc, setDesc] = useState('');
+  const [temp, setTemp] = useState([]);
+
+  const loadData = async () => {
+    try{  
+      const response = await icd_server.post('/file_api/conditions_data/',{file_id:fileID});
+      setTemp(response.data.data);
+      console.log(response.data.data);
+    }catch(e){
+      console.log(e);
+    }
+  }
+
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages);
+  };
+
+  const highlightText = () => {
+    const newHighlights = [];
+
+    temp.map((item) => {
+      newHighlights.push({
+        pageIndex: item.page,
+        top: item.box.t * 100,
+        left: item.box.l * 100,
+        width: item.box.w * 100,
+        height: item.box.h * 100,
+        text: item.text,
+        desc: item.desc
+      });
+    })
+
+    // textLayerRefs.current.forEach((textLayer, pageIndex) => {
+    //   if (textLayer) {
+    //     const textItems = textLayer.querySelectorAll('span');
+
+    //     textItems.forEach((span) => {
+
+    //       let x = span.textContent.toLowerCase();
+
+    //       searchText.forEach((y) => {
+    //         if (x.includes(y)) {
+    //           const rect = span.getBoundingClientRect();
+    //           const containerRect = textLayer.getBoundingClientRect();
+
+    //           newHighlights.push({
+    //             pageIndex,
+    //             top: rect.top - containerRect.top,
+    //             left: rect.left - containerRect.left,
+    //             width: rect.width,
+    //             height: rect.height,
+    //             text:y,
+    //             desc:x
+    //           });
+    //         }  
+    //       })
+    //     });
+    //   }
+    // });
+    setHighlights(newHighlights);
+  };
+
+  useEffect(() => {
+    // let interval = setInterval(() => {
+    //   if (numPages && textLayerRefs.current.length === numPages) {
+    //     highlightText();
+    //   }
+    // },500)
+
+    // return () => clearInterval(interval);
+
+    highlightText();
+  }, [temp]);
+
+  useEffect(() => { 
+    loadData(); 
+  },[fileID]);
+
+  return (
+    <>
+      <Navbar/>
+  
+      <div className={styles.pdfContainer}>
+        <Document file={fileURL} onLoadSuccess={onDocumentLoadSuccess}>
+          {Array.from(new Array(numPages), (el, index) => (
+            <div key={`page_${index}`} className={styles.pdfPage}>
+              <Page pageNumber={index + 1} renderTextLayer
+                onRenderSuccess={() => {
+                    const textLayer = document.querySelector(
+                      `div.react-pdf__Page[data-page-number="${index + 1}"]`
+                    );
+                    if (textLayer) {
+                      setRenderedPagesCount((prevCount) => prevCount + 1);
+                      textLayerRefs.current[index] = textLayer
+                    }
+                }}
+              /> 
+              {highlights.filter((hl) => hl.pageIndex === index).map((hl, idx) => (
+                  <div
+                    key={`highlight_${idx}`}
+                    className={styles.highlight}
+                    // style={{
+                    //   '--top': `${hl.top}px`,
+                    //   '--left': `${hl.left}px`,
+                    //   '--width': `${hl.width}px`,
+                    //   '--height': `${hl.height}px`,
+                    // }}
+                    style={{
+                      '--top': `${hl.top}%`,
+                      '--left': `${hl.left}%`,
+                      '--width': `${hl.width}%`,
+                      '--height': `${hl.height}%`,
+                    }}
+                    onMouseEnter={()=>{setText(hl.text);setDesc(hl.desc)}}
+                    onMouseLeave={()=>{setText(null);setDesc(null)}}
+                  >
+                    {text!==null && desc!==null && <TransitionsPopper text={text} desc={desc} width={hl.width} height={hl.height}/>}
+                  </div>
+                ))}
+            </div>
+          ))}
+        </Document>
+      </div>
+    </>
+  );
+}
+
+export default HighlightPDF;
