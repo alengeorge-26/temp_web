@@ -19,7 +19,7 @@ phases:
       - docker tag temp_web:latest 646907426484.dkr.ecr.us-east-2.amazonaws.com/temp_web:latest
       - docker push 646907426484.dkr.ecr.us-east-2.amazonaws.com/temp_web:latest
       - echo Writing imagedefinitions.json file...
-      - printf '[{"name":"exp-code-pipeline","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"temp-web","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files:
     - imagedefinitions.json
