@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - echo Setting environment variables...
+      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 646907426484.dkr.ecr.us-east-2.amazonaws.com
+      - REPOSITORY_URI=646907426484.dkr.ecr.us-east-2.amazonaws.com/temp_web
+      - IMAGE_TAG=latest
+  build:
+    commands:
+      - echo Building the Docker image...
+      - docker build -t temp_web .
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image to ECR...
+      - docker tag temp_web:latest 646907426484.dkr.ecr.us-east-2.amazonaws.com/temp_web:latest
+      - docker push 646907426484.dkr.ecr.us-east-2.amazonaws.com/temp_web:latest
+      - echo Writing imagedefinitions.json file...
+      - printf '[{"name":"exp-code-pipeline","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json
