@@ -6,18 +6,18 @@ phases:
       - echo Logging in to Amazon ECR...
       - echo Setting environment variables...
       - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 646907426484.dkr.ecr.us-east-2.amazonaws.com
-      - REPOSITORY_URI=646907426484.dkr.ecr.us-east-2.amazonaws.com/temp_web
+      - REPOSITORY_URI=646907426484.dkr.ecr.us-east-2.amazonaws.com/icd-client-cicd
       - IMAGE_TAG=latest
   build:
     commands:
       - echo Building the Docker image...
-      - docker build -t temp_web .
+      - docker build -t icd-client-cicd .
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image to ECR...
-      - docker tag temp_web:latest 646907426484.dkr.ecr.us-east-2.amazonaws.com/temp_web:latest
-      - docker push 646907426484.dkr.ecr.us-east-2.amazonaws.com/temp_web:latest
+      - docker tag icd-client-cicd:latest 646907426484.dkr.ecr.us-east-2.amazonaws.com/icd-client-cicd:latest
+      - docker push 646907426484.dkr.ecr.us-east-2.amazonaws.com/icd-client-cicd:latest
       - echo Writing imagedefinitions.json file...
       - printf '[{"name":"temp-web","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - cat imagedefinitions.json
