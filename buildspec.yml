@@ -19,7 +19,7 @@ phases:
       - docker tag icd-client-cicd:latest 646907426484.dkr.ecr.us-east-2.amazonaws.com/icd-client-cicd:latest
       - docker push 646907426484.dkr.ecr.us-east-2.amazonaws.com/icd-client-cicd:latest
       - echo Writing imagedefinitions.json file...
-      - printf '[{"name":"temp-web","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"icd-client-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - cat imagedefinitions.json
 artifacts:
   files:
