@@ -24,6 +24,7 @@ const HighlightPDF = () => {
   const [text, setText] = useState('');
   const [desc, setDesc] = useState('');
   const [code, setCode] = useState('');
+  const [hcc_code, setHccCode] = useState('');
   const [temp, setTemp] = useState([]);
   const [alert, setAlert] = useState(false);
 
@@ -46,6 +47,7 @@ const HighlightPDF = () => {
           }
         );
         setTemp(response.data);
+        console.log(response.data);
       }catch{
         setAlert(true);
       }
@@ -59,7 +61,8 @@ const HighlightPDF = () => {
     const newHighlights = [];
 
     temp.map((item) => {
-      newHighlights.push({
+      if(item.HCC_Code!==null)
+        newHighlights.push({
         pageIndex: 0,
         top: item.BoundingBox.Top * 100,
         left: item.BoundingBox.Left * 100,
@@ -67,7 +70,8 @@ const HighlightPDF = () => {
         height: item.BoundingBox.Height * 100,
         text: item.Text,
         desc: item.Description,
-        code: item.Code
+        code: item.Code,
+        hcc_code: item.HCC_Code
       });
     })
 
@@ -103,10 +107,10 @@ const HighlightPDF = () => {
                       '--width': `${hl.width}%`,
                       '--height': `${hl.height}%`,
                     }}
-                    onMouseEnter={()=>{setText(hl.text);setDesc(hl.desc);setCode(hl.code)}}
+                    onMouseEnter={()=>{setText(hl.text);setDesc(hl.desc);setCode(hl.code);setHccCode(hl.hcc_code)}}
                     onMouseLeave={()=>{setText(null);setDesc(null)}}
                   >
-                    {text!==null && desc!==null && <TransitionsPopper text={text} desc={desc} code={code}/>}
+                    {text!==null && desc!==null && <TransitionsPopper text={text} desc={desc} code={code} hcc_code={hcc_code}/>}
                   </div>
                 ))}
             </div>

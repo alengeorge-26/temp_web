@@ -4,11 +4,12 @@ import Popper from '@mui/material/Popper';
 import Fade from '@mui/material/Fade';
 import PropTypes from 'prop-types';
 
-export default function TransitionsPopper({text,desc,code}) {
+export default function TransitionsPopper({text,desc,code,hcc_code}) {
     TransitionsPopper.propTypes = {
         text: PropTypes.string.isRequired,
         desc: PropTypes.string.isRequired,
-        code: PropTypes.string.isRequired
+        code: PropTypes.string.isRequired,
+        hcc_code: PropTypes.string.isRequired
     };
 
     const [open, setOpen] = React.useState(false);
@@ -31,6 +32,7 @@ export default function TransitionsPopper({text,desc,code}) {
                         <h4>{text}</h4>
                         <p style={{fontSize:'10px'}}>{desc}</p>
                         <p style={{fontSize:'10px'}}>{code}</p>
+                        <p style={{fontSize:'10px'}}>HCC_Code : {hcc_code}</p>
                     </Box>
                 </Fade>
                 )}
