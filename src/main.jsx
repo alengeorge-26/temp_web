@@ -5,7 +5,9 @@ import "./styles/global.css";
 import { UserContextProvider } from "./contextapi.js/user_context.jsx";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 
-disableReactDevTools();
+if(import.meta.env.VITE_NODE_ENV === "production") {
+  disableReactDevTools();
+}
 
 console.log("HELLO");
 

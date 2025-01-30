@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const icd_server = axios.create({
-  baseURL: "http://3.129.244.205:8000",
+  baseURL: import.meta.env.VITE_ICD_SERVER_BASE_URL,
 });
 
 export default icd_server;
