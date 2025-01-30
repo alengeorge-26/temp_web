@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+ENV VITE_ICD_SERVER_BASE_URL='http://3.133.142.169:8000' VITE_NODE_ENV='production'
+
 RUN npm run build
 
 EXPOSE 4173

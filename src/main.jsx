@@ -9,7 +9,7 @@ if(import.meta.env.VITE_NODE_ENV === "production") {
   disableReactDevTools();
 }
 
-console.log("HELLO");
+console.log(import.meta.env.VITE_NODE_ENV);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
